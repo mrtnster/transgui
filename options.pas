@@ -46,6 +46,7 @@ type
     cbRegExt: TCheckBox;
     cbRegMagnet: TCheckBox;
     cbTrayNotify: TCheckBox;
+    cbShowFullPath: TCheckBox;
     edIntfScale: TSpinEdit;
     edCheckVersionDays: TSpinEdit;
     edRefreshInterval: TSpinEdit;

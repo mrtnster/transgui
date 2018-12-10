@@ -50,6 +50,7 @@ type
     cbAuth: TCheckBox;
     cbShowAdvanced: TCheckBox;
     cbAskPassword: TCheckBox;
+    cbTrimFullPath: TCheckBox;
     edMaxFolder: TSpinEdit;
     edIniFileName: TEdit;
     edLanguage: TEdit;
@@ -71,6 +72,7 @@ type
     edPaths: TMemo;
     gbSpeed: TGroupBox;
     Label1: TLabel;
+    Label111: TLabel;
     Label2: TLabel;
     txRpcPath: TLabel;
     txConName: TLabel;
@@ -532,6 +534,7 @@ begin
       else
         edProxyPassword.Text:='';
     edPaths.Text:=StringReplace(ReadString(Sec, 'PathMap', ''), '|', LineEnding, [rfReplaceAll]);
+    cbTrimFullPath.Checked:=ReadBool(Sec, 'TrimFullPath', False);
     edDownSpeeds.Text:=ReadString(Sec, 'DownSpeeds', DefSpeeds);
     edUpSpeeds.Text:=ReadString(Sec, 'UpSpeeds', DefSpeeds);
     edTranslateMsg.Checked:=ReadBool('Translation', 'TranslateMsg', True);
@@ -610,6 +613,7 @@ begin
       WriteString(Sec, 'ProxyPass', s);
     end;
     WriteString(Sec, 'PathMap', StringReplace(edPaths.Text, LineEnding, '|', [rfReplaceAll]));
+    WriteBool(Sec, 'TrimFullPath', cbTrimFullPath.Checked);
     WriteString(Sec, 'DownSpeeds', Trim(edDownSpeeds.Text));
     WriteString(Sec, 'UpSpeeds', Trim(edUpSpeeds.Text));
 
@@ -644,6 +648,7 @@ begin
             (edProxyUserName.Text <> ReadString(Sec, 'ProxyUser', '')) or
             ((ReadString(Sec, 'ProxyPass', '') = '') and (edProxyPassword.Text <> '')) or
             ((ReadString(Sec, 'ProxyPass', '') <> '') and (edProxyPassword.Text <> '******')) or
+            (cbTrimFullPath.Checked <> ReadBool(Sec, 'TrimFullPath', False)) or
             (edPaths.Text <> StringReplace(ReadString(Sec, 'PathMap', ''), '|', LineEnding, [rfReplaceAll])) or
             (edDownSpeeds.Text <> ReadString(Sec, 'DownSpeeds', '')) or
             (edUpSpeeds.Text <> ReadString(Sec, 'UpSpeeds', ''))

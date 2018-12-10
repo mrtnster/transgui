@@ -649,6 +649,7 @@ type
     FLastDone: double;
     FCurConn: string;
     FPathMap: TStringList;
+    FTrimFullPath: boolean;
     FLastFilerIndex: integer;
     FFilterChanged: boolean;
     FCurDownSpeedLimit: integer;
@@ -683,6 +684,7 @@ type
     FFilesTree: TFilesTree;
     FFilesCapt: string;
     FCalcAvg: boolean;
+    FShowFullPath: boolean;
     FPasswords: TStringList;
 
     procedure UpdateUI;
@@ -1626,6 +1628,7 @@ begin
   if FCurConn = '' then
     FCurConn:=Ini.ReadString('Connection', 'Host', '');
   FPathMap:=TStringList.Create;
+  FShowFullPath:=Ini.ReadBool('Interface', 'ShowFullPath', True);
   if Application.HasOption('hidden') then begin
     ApplicationProperties.ShowMainForm:=False;
     TickTimer.Enabled:=True;
@@ -2094,6 +2097,7 @@ begin
     edRefreshInterval.Value:=Ini.ReadInteger('Interface', 'RefreshInterval', 5);
     edRefreshIntervalMin.Value:=Ini.ReadInteger('Interface', 'RefreshIntervalMin', 20);
     cbCalcAvg.Checked:=FCalcAvg;
+    cbShowFullPath.Checked:=FShowFullPath;
 {$ifndef darwin}
     cbTrayMinimize.Checked:=Ini.ReadBool('Interface', 'TrayMinimize', True);
 {$else}
@@ -2127,6 +2131,7 @@ begin
       Ini.WriteInteger('Interface', 'RefreshInterval', edRefreshInterval.Value);
       Ini.WriteInteger('Interface', 'RefreshIntervalMin', edRefreshIntervalMin.Value);
       Ini.WriteBool('Interface', 'CalcAvg', cbCalcAvg.Checked);
+      Ini.WriteBool('Interface', 'ShowFullPath', cbShowFullPath.Checked);
 {$ifndef darwin}
       Ini.WriteBool('Interface', 'TrayMinimize', cbTrayMinimize.Checked);
 {$endif}
@@ -2789,6 +2794,7 @@ begin
 {$endif darwin}
   SetRefreshInterval;
   FCalcAvg:=Ini.ReadBool('Interface', 'CalcAvg', True);
+  FShowFullPath:=Ini.ReadBool('Interface', 'ShowFullPath', False);
 end;
 
 procedure TMainForm.HideApp;
@@ -4958,6 +4964,8 @@ begin
     else
       Inc(i);
 
+  FTrimFullPath:=Ini.ReadBool(Sec, 'TrimFullPath', False);
+
   Ini.WriteString('Hosts', 'CurHost', FCurConn);
   if FCurConn <> Ini.ReadString('Hosts', 'Host1', '') then begin
     Ini.WriteString('Hosts', 'Host1', FCurConn);
@@ -5470,11 +5478,11 @@ end;
 
 procedure TMainForm.FillTorrentsList(list: TJSONArray);
 var
-  i, j, row, crow, id, StateImg: integer;
+  i, j, k, row, crow, id, StateImg: integer;
   t: TJSONObject;
   f: double;
   ExistingRow: boolean;
-  s, ss: string;
+  s, ss, prefix: string;
 
   function GetTorrentValue(AIndex: integer; const AName: string; AType: integer): boolean;
   var
@@ -5990,9 +5998,25 @@ begin
       Inc(j);
 
       for i:=0 to Paths.Count - 1 do begin
-        s:=ExtractFileName(Paths[i]);
+        prefix := '';
+        if FShowFullPath and FTrimFullPath then
+        begin
+          for k:=0 to FPathMap.Count - 1 do begin
+            if Pos(LeftStr(FPathMap[k], Pos('=', FPathMap[k]) - 1), Paths[i]) > 0 then
+               prefix := LeftStr(FPathMap[k], Pos('=', FPathMap[k]) - 1);
+          end;
+          prefix := IncludeProperTrailingPathDelimiter(prefix);
+        end
+        else if FShowFullPath then begin
+          prefix := '';
+        end
+        else begin
+          prefix := ExtractFilePath(Paths[i]);
+        end;
+
+        s:=ExtractRelativepath(prefix, Paths[i]);
         for row:=StatusFiltersCount + 1 to j - 1 do
-          if ExtractFileName(UTF8Encode(widestring(lvFilter.Items[-1, row]))) = s then begin 
+          if ExtractRelativepath(prefix, UTF8Encode(widestring(lvFilter.Items[-1, row]))) = s then begin
             s:=Paths[i];
             lvFilter.Items[0, row]:=UTF8Decode(Format('%s (%d)', [UTF8Encode(widestring(lvFilter.Items[-1, row])), ptruint(Paths.Objects[row - StatusFiltersCount - 1])]));
           end;
