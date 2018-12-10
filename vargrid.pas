@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -238,7 +238,7 @@ procedure Register;
 implementation
 
 uses Variants, Math, GraphType, lclintf, Themes, types, lclproc
-     {$ifdef LCLcarbon} , carbonproc {$endif LCLcarbon};
+    {$ifdef LCLcarbon} , carbonproc {$endif LCLcarbon};
 
 const
   roSelected = 1;
@@ -546,7 +546,7 @@ begin
     if VarIsNull(v) or VarIsEmpty(v) then
       s:= ''
     else
-      s:= LazUTF8.UTF8UpperCase(UTF8Encode(widestring(v))); 
+      s:= LazUTF8.UTF8UpperCase(UTF8Encode(widestring(v)));
     if Copy(s, 1, Length(ss)) = ss then begin
       Result:=i;
       break;
@@ -1082,7 +1082,7 @@ begin
     if ARow >= FixedRows then begin
       v:=Items[dc, ARow - FixedRows];
       if not VarIsNull(v) and not VarIsEmpty(v) then
-        CellAttribs.Text:=UTF8Encode(WideString(v)) 
+        CellAttribs.Text:=UTF8Encode(WideString(v))
       else
         CellAttribs.Text:='';
     end
@@ -1332,7 +1332,7 @@ var
       end;
       if ClickCellPushed and (aCol=PushedCell.x) and (aRow=PushedCell.y) then begin
         Include(gds, gdPushed);
-       end;
+      end;
     end;
 {$ifdef LCLgtk2}
     Rgn := CreateRectRgn(R.Left, R.Top, R.Right, R.Bottom);
@@ -1348,6 +1348,7 @@ var
   end;
 
 begin
+  Rs := false;
   // Upper and Lower bounds for this row
   R.Left:=0;
   ColRowToOffSet(False, True, aRow, R.Top, R.Bottom);
@@ -1396,7 +1397,7 @@ begin
 
     // Draw the focus Rect
     if FocusRectVisible and (ARow=inherited Row) and
-       ((Rs and (ARow>=Top) and (ARow<=Bottom)) or IsCellVisible(Col,ARow))
+      ((Rs and (ARow>=Top) and (ARow<=Bottom)) or IsCellVisible(Col,ARow))
     then begin
       if EditorMode then begin
       //if EditorAlwaysShown and (FEditor<>nil) and FEditor.Visible then begin
@@ -1421,7 +1422,7 @@ begin
   if ARow >= FixedRows then begin
     v:=Items[dc, ARow - FixedRows];
     if not VarIsNull(v) and not VarIsEmpty(v) then
-      Result:=UTF8Encode(WideString(v)); 
+      Result:=UTF8Encode(WideString(v));
   end;
 end;
 

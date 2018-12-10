@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -355,8 +355,8 @@ begin
     else begin
       R := I-1;
       if (CompareRes=0) then begin
-         Result := true;
-         L := I; // forces end of while loop
+        Result := true;
+        L := I; // forces end of while loop
       end;
     end;
   end;

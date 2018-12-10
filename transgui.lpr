@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2013 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,18 +36,21 @@ uses
 {$endif}
   Interfaces, // this includes the LCL widgetset
   Forms
-  { you can add units after this }, BaseForm, Main, rpc, AddTorrent, ConnOptions, varlist,
-  TorrProps, DaemonOptions, About, IpResolver, download, ColSetup, utils, ResTranslator, AddLink, MoveTorrent, AddTracker, Options;
+  { you can add units after this }, BaseForm, Main, rpc, AddTorrent,
+  ConnOptions, varlist, TorrProps, DaemonOptions, About, IpResolver, download,
+  ColSetup, utils, ResTranslator, AddLink, MoveTorrent, AddTracker, Options,
+  passwcon;
 
 //{$ifdef windows}
 {$R *.res}
 //{$endif}
 
 begin
+//Application.Scaled:=True; //travis doesnt compile
+
   if not CheckAppParams then exit;
 
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.
-

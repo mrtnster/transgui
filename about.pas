@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@ uses
 resourcestring
   SErrorCheckingVersion = 'Error checking for new version.';
   SNewVersionFound = 'A new version of %s is available.' + LineEnding +
-                     'Your current version: %s' + LineEnding +
-                     'The new version: %s' + LineEnding + LineEnding +
-                     'Do you wish to open the Downloads web page?';
+                    'Your current version: %s' + LineEnding +
+                    'The new version: %s' + LineEnding + LineEnding +
+                    'Do you wish to open the Downloads web page?';
   SLatestVersion = 'No updates have been found.' + LineEnding + 'You are running the latest version of %s.';
 
 type
@@ -63,7 +63,7 @@ type
     { private declarations }
   public
     { public declarations }
-  end; 
+  end;
 
 procedure CheckNewVersion(Async: boolean = True);
 procedure GoHomePage;

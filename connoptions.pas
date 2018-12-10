@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -560,7 +560,7 @@ begin
     if IsConnSettingsChanged(ConnName) then
       ActiveSettingChanged:=True;
 
-  Ini.WriteInteger('Interface','MaxFoldersHistory', edMaxFolder.Value); 
+  Ini.WriteInteger('Interface','MaxFoldersHistory', edMaxFolder.Value);
   with Ini do begin
     Sec:='Connection.' + ConnName;
     WriteString(Sec, 'Host', Trim(edHost.Text));

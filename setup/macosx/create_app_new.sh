@@ -13,11 +13,10 @@ appfolder="$dmgfolder/$appname.app"
 lazdir="${1:-/Developer/lazarus/}"
 
 if [ -z "${CI-}" ]; then
-    ./compilers.sh
+  ./compilers.sh
 fi
 
-if [ ! "$lazdir" = "" ]
-then
+if [ ! "$lazdir" = "" ]; then
   lazdir=LAZARUS_DIR="$lazdir"
 fi
 
@@ -29,8 +28,7 @@ lazbuild -B ../../transgui.lpi --lazarusdir=/Developer/lazarus/
 make -j"$(sysctl -n hw.ncpu)" -C ../.. clean CPU_TARGET=i386 "$lazdir"
 make -j"$(sysctl -n hw.ncpu)" -C ../.. CPU_TARGET=i386 "$lazdir"
 
-if ! [ -e $exename ]
-then
+if ! [ -e $exename ]; then
   echo "$exename does not exist"
   exit 1
 fi
@@ -71,5 +69,5 @@ rm -rf "$dmgfolder"
 mv ../../about.lfm.bak ../../about.lfm
 
 if [ -z "${CI-}" ]; then
-    open "transgui-$prog_ver.dmg"
+  open "transgui-$prog_ver.dmg"
 fi

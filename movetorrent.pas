@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ type
     { private declarations }
   public
     { public declarations }
-  end; 
+  end;
 
 implementation
 
@@ -77,8 +77,6 @@ begin
 end;
 
 procedure TMoveTorrentForm.FormCreate(Sender: TObject);
-var
-    c,c1,c2: integer;
 begin
   Buttons.OKButton.ModalResult:=mrNone;
   Buttons.OKButton.OnClick:=@btOKClick;
@@ -90,4 +88,3 @@ initialization
   {$I movetorrent.lrs}
 
 end.
-

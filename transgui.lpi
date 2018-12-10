@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
@@ -10,6 +10,7 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <AutoCreateForms Value="False"/>
+      <Scaled Value="True"/>
       <UseAppBundle Value="False"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -20,9 +21,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="5"/>
-      <MinorVersionNr Value="15"/>
-      <RevisionNr Value="4"/>
-      <StringTable CompanyName="Yury Sidorov" FileDescription="Transmission Remote GUI" InternalName="transgui" LegalCopyright="Copyright (c) 2008-2017 by Yury Sidorov &amp; Alexander Petrov" OriginalFilename="transgui.exe" ProductName="Transmission Remote GUI" ProductVersion="5.15.4"/>
+      <MinorVersionNr Value="16"/>
+      <StringTable CompanyName="Transmission Remote GUI working group" FileDescription="Transmission Remote GUI" InternalName="transgui" LegalCopyright="Copyright (c) 2008-2018 by Yury Sidorov &amp; Transmission Remote GUI working group" OriginalFilename="transgui.exe" ProductName="Transmission Remote GUI" ProductVersion="5.16"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
@@ -50,7 +50,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="19">
+    <Units Count="20">
       <Unit0>
         <Filename Value="transgui.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -180,6 +180,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="BaseForm"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="passwcon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PasswordConnect"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit19>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -187,31 +194,22 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="synapse\source\lib"/>
-      <OtherUnitFiles Value="synapse\source\lib;json"/>
+      <OtherUnitFiles Value="synapse\source\lib"/>
       <UnitOutputDirectory Value="units"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
-        <CStyleOperator Value="False"/>
         <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="4"/>
-      </Optimizations>
-      <SmallerCode Value="True"/>
-    </CodeGeneration>
-    <Linking>
-      <Debugging>
-        <UseValgrind Value="True"/>
-      </Debugging>
-    </Linking>
     <Other>
-      <Verbosity>
-        <ShowHints Value="False"/>
-      </Verbosity>
       <CustomOptions Value="-Sa"/>
+      <ExecuteBefore>
+        <ShowAllMessages Value="True"/>
+      </ExecuteBefore>
+      <ExecuteAfter>
+        <ShowAllMessages Value="True"/>
+      </ExecuteAfter>
     </Other>
   </CompilerOptions>
   <Debugging>

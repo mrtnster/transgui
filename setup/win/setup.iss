@@ -11,7 +11,7 @@
 
 #define AppName "Transmission Remote GUI"
 #define AppVerName AppName + " " + AppVersion
-#define AppPublisher "Yury Sidorov & Alexander Petrov"
+#define AppPublisher "Yury Sidorov & Transmission Remote GUI working group"
 #define AppURL "https://github.com/transmission-remote-gui/transgui"
 #define AppExeName "transgui.exe"
 #define CurYear GetDateTimeString('yyyy', '', '')
@@ -54,7 +54,7 @@ Name: "zh_cn"; MessagesFile: "..\..\Inno Setup lang\ChineseSimplified.isl"
 AppId=transgui
 AppName={#AppName}
 AppVerName={#AppVerName}
-AppCopyright=Copyright (c) 2008-{#CurYear} by Yury Sidorov & Alexander Petrov
+AppCopyright=Copyright (c) 2008-{#CurYear} by Yury Sidorov & Transmission Remote GUI working group
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
@@ -164,7 +164,7 @@ const
 
   VC_2013_REDIST_X86_ADD_40660 = '{7DAD0258-515C-3DD4-8964-BD714199E0F7}';
 
-function MsiQueryProductState(szProduct: string): INSTALLSTATE; 
+function MsiQueryProductState(szProduct: string): INSTALLSTATE;
   external 'MsiQueryProductState{#AW}@msi.dll stdcall';
 
 function VCVersionInstalled(const ProductID: string): Boolean;
@@ -174,9 +174,9 @@ end;
 
 function VCRedistNeedsInstall: Boolean;
 begin
-  Result := not ((VCVersionInstalled(VC_2013_REDIST_X86_MIN) and 
-    VCVersionInstalled(VC_2013_REDIST_X86_ADD)) or 
-    (VCVersionInstalled(VC_2013_REDIST_X86_MIN_40660) and 
+  Result := not ((VCVersionInstalled(VC_2013_REDIST_X86_MIN) and
+    VCVersionInstalled(VC_2013_REDIST_X86_ADD)) or
+    (VCVersionInstalled(VC_2013_REDIST_X86_MIN_40660) and
     VCVersionInstalled(VC_2013_REDIST_X86_ADD_40660)));
 end;
 
@@ -199,4 +199,3 @@ Filename: "{tmp}\vcredist_x86"; Parameters: "/q"; Check: VCRedistNeedsInstall
 
 [UninstallDelete]
 Type: filesandordirs ; Name: "{localappdata}\{#AppName}"
-

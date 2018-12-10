@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2014 by Yury Sidorov.
+  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -154,11 +154,11 @@ begin
         if C is TVarGrid then
           with TVarGrid(C).Columns do
             for i:=0 to Count - 1 do
-               Items[i].Width:=ScaleInt(Items[i].Width);
+              Items[i].Width:=ScaleInt(Items[i].Width);
         if C is TStatusBar then
           with TStatusBar(C) do
             for i:=0 to Panels.Count - 1 do
-               Panels[i].Width:=ScaleInt(Panels[i].Width);
+              Panels[i].Width:=ScaleInt(Panels[i].Width);
       end;
 
       // Runtime fixes
