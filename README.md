@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/transmission-remote-gui/transgui.svg?branch=master)](https://travis-ci.org/transmission-remote-gui/transgui)
 
-![Screenshot](http://i.imgur.com/Dum7Oka.png)
+![Screenshot](http://i.imgur.com/Xi0zYnp.png)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -198,7 +198,7 @@ FromNow=1 {1=Shows the dates relatives to now , 0=Absolute Dates MM/DD/YY HH:MM:
 
 ## License
 
-Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
+Copyright (c) 2008-2019 by Yury Sidorov and Transmission Remote GUI working group.
 
 Transmission Remote GUI is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 

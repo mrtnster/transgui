@@ -1,6 +1,6 @@
 {*************************************************************************************
   This file is part of Transmission Remote GUI.
-  Copyright (c) 2008-2018 by Yury Sidorov and Transmission Remote GUI working group.
+  Copyright (c) 2008-2019 by Yury Sidorov and Transmission Remote GUI working group.
 
   Transmission Remote GUI is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ uses
 
 const
   AppName = 'Transmission Remote GUI';
-  AppVersion = '5.16';
+  AppVersion = '5.16.0';
 
 resourcestring
   sAll = 'All torrents';
@@ -940,7 +940,7 @@ uses
   begin
     WriteStr(Result, Item);
   end;
-  
+
 const
   TR_STATUS_CHECK_WAIT_1   = ( 1 shl 0 ); // Waiting in queue to check files
   TR_STATUS_CHECK_1        = ( 1 shl 1 ); // Checking files
@@ -1803,9 +1803,9 @@ begin
         if j <> 0 then StatusBar.Panels[i].Width:=j else
                   Ini.WriteInteger('StatusBarPanels',IntToStr(i),Statusbar.Panels[i].Width);
   end;
- {$IF LCL_FULLVERSION >= 1080000}
+  {$IF LCL_FULLVERSION >= 1080000}
   PageInfo.Options := PageInfo.Options + [nboDoChangeOnSetIndex]
- {$ENDIF}
+  {$ENDIF}
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -3192,7 +3192,7 @@ end;
 
 function TMainForm.TorrentDateTimeToString(d: Int64; FromNow: Boolean): string;
 var
-   s: string;
+  s: string;
 begin
   if d = 0 then
     Result:=''
@@ -3739,10 +3739,10 @@ begin
   if StatusBar.Visible then
       StatusBar.Top:=ClientHeight
   else
-      begin
-        acStatusBarSizes.Checked := true;
-        acStatusBarSizesExecute(nil);
-      end;
+    begin
+      acStatusBarSizes.Checked := true;
+      acStatusBarSizesExecute(nil);
+    end;
 end;
 
 procedure TMainForm.acStatusBarSizesExecute(Sender: TObject);
@@ -3750,8 +3750,8 @@ begin
   acStatusBarSizes.Checked := not acStatusBarSizes.Checked;
   if acStatusBarSizes.Checked then
     begin
-          acStatusBar.Checked:=false;
-          acStatusBarExecute(nil);
+      acStatusBar.Checked:=false;
+      acStatusBarExecute(nil);
     end
       else
         begin
@@ -3777,65 +3777,64 @@ procedure TMainForm.gTorrentsMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 var r, c, ADatacol: integer;
 begin
-    ADataCol := 0;
-    gTorrents.MouseToCell(x, y, c, r);
-    if c>= 0 then ADataCol := gTorrents.ColToDataCol(c);
-    if r = 0 then gTorrents.Hint:='';
-    if (ADataCol <> FCol) or (r <> FRow) then
-          begin
-            FCol := ADataCol;
-            FRow := r;
-            case ADataCol of
-            idxAddedOn, idxCompletedOn, idxLastActive:
-                begin
-                    Application.CancelHint;
-                    gTorrents.Hint := TorrentDateTimeToString(gTorrents.Items[ADataCol, FRow-1],not(FFromNow));
-                end
-                else gTorrents.Hint:='';
-            end;
-          end;
+  ADataCol := 0;
+  gTorrents.MouseToCell(x, y, c, r);
+  if c>= 0 then ADataCol := gTorrents.ColToDataCol(c);
+  if r = 0 then gTorrents.Hint:='';
+  if (ADataCol <> FCol) or (r <> FRow) then
+    begin
+      FCol := ADataCol;
+      FRow := r;
+      case ADataCol of
+      idxAddedOn, idxCompletedOn, idxLastActive:
+        begin
+          Application.CancelHint;
+          gTorrents.Hint := TorrentDateTimeToString(gTorrents.Items[ADataCol, FRow-1],not(FFromNow));
+        end
+        else gTorrents.Hint:='';
+      end;
+    end;
 end;
 
 procedure TMainForm.gTorrentsMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-    if Button = mbRight then pmTorrents.PopUp;
+  if Button = mbRight then pmTorrents.PopUp;
 end;
 
 procedure TMainForm.LocalWatchTimerTimer(Sender: TObject);
 begin
   ReadLocalFolderWatch;
   if FPendingTorrents.Count > 0 then
-      begin
-        FWatchDownloading := true;
-        TickTimerTimer(nil);
-      end;
+    begin
+      FWatchDownloading := true;
+      TickTimerTimer(nil);
+    end;
 end;
 
 
 procedure TMainForm.lvFilesMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-    if Button = mbRight then pmFiles.PopUp;
+  if Button = mbRight then pmFiles.PopUp;
 end;
 
 procedure TMainForm.MenuShowExecute(Sender: TObject);
 begin
- acMenuShow.Checked:=not acMenuShow.Checked;
- if acMenuShow.Checked = false then
-  MainForm.Menu := nil
- else
-  MainForm.Menu := MainMenu;
+  acMenuShow.Checked:=not acMenuShow.Checked;
+  if acMenuShow.Checked = false then
+    MainForm.Menu := nil
+  else
+    MainForm.Menu := MainMenu;
 end;
 
 procedure TMainForm.acToolbarShowExecute(Sender: TObject);
 begin
-
   acToolbarShow.Checked:=not acToolbarShow.Checked;
   if acToolbarShow.Checked = false then
-      MainToolBar.Visible:= false
+    MainToolBar.Visible:= false
   else
-      MainToolBar.Visible:= true;
+    MainToolBar.Visible:= true;
 end;
 
 procedure TMainForm.acTorrentPropsExecute(Sender: TObject);
@@ -4672,42 +4671,42 @@ end;
 
 procedure TMainForm.MenuItem101Click(Sender: TObject);
 var
- req, args, tt: TJSONObject;
- ids, t: TJSONArray;
- i: Integer;
- TorrentIds: Variant;
- Magnets: TStringList;
+  req, args, tt: TJSONObject;
+  ids, t: TJSONArray;
+  i: Integer;
+  TorrentIds: Variant;
+  Magnets: TStringList;
 begin
   TorrentIds:=GetSelectedTorrents;
   req:=TJSONObject.Create;
   args:=TJSONObject.Create;
   Magnets:=TStringList.Create;
-try
-      req.Add('method', 'torrent-get');
-      ids:=TJSONArray.Create;
-      for i:=VarArrayLowBound(TorrentIds, 1) to VarArrayHighBound(TorrentIds, 1) do
-        ids.Add(integer(TorrentIds[i]));
-      args.Add('ids', ids);
-      args.Add('fields', TJSONArray.Create(['magnetLink']));
-      req.Add('arguments', args);
-      args:=RpcObj.SendRequest(req);
-      if args = nil then begin
-        CheckStatus(False);
-        exit;
+  try
+    req.Add('method', 'torrent-get');
+    ids:=TJSONArray.Create;
+    for i:=VarArrayLowBound(TorrentIds, 1) to VarArrayHighBound(TorrentIds, 1) do
+      ids.Add(integer(TorrentIds[i]));
+    args.Add('ids', ids);
+    args.Add('fields', TJSONArray.Create(['magnetLink']));
+    req.Add('arguments', args);
+    args:=RpcObj.SendRequest(req);
+    if args = nil then begin
+      CheckStatus(False);
+      exit;
+    end;
+    t:=TJSONArray.Create;
+    t:=args.Arrays['torrents'];
+    for i:= 0 to t.Count-1 do
+      begin
+        tt:=t.Objects[i] as TJSONObject;
+        Magnets.add(tt.Strings['magnetLink']);
       end;
-      t:=TJSONArray.Create;
-      t:=args.Arrays['torrents'];
-      for i:= 0 to t.Count-1 do
-        begin
-          tt:=t.Objects[i] as TJSONObject;
-          Magnets.add(tt.Strings['magnetLink']);
-        end;
-      FLastClipboardLink := Magnets.Text;   // To Avoid TransGUI detect again this existing links
-      Clipboard.AsText := Magnets.Text;
- finally
-      req.Free;
-      args.Free;
-      Magnets.Free;
+    FLastClipboardLink := Magnets.Text;   // To Avoid TransGUI detect again this existing links
+    Clipboard.AsText := Magnets.Text;
+  finally
+    req.Free;
+    args.Free;
+    Magnets.Free;
   end;
 end;
 
@@ -4974,16 +4973,16 @@ begin
       // own dialog for entering a password (****)
       with TPasswordConnect.Create(Self) do
       try
-         SetText(Format(SConnectTo, [FCurConn]), Format(SEnterPassword, [FCurConn]));
-         if ShowModal <> mrOk then begin
-           RpcObj.Url:='-';
-           Result:=False;
-           exit;
-         end else begin
-           pwd := gPassw
-         end;
+        SetText(Format(SConnectTo, [FCurConn]), Format(SEnterPassword, [FCurConn]));
+        if ShowModal <> mrOk then begin
+          RpcObj.Url:='-';
+          Result:=False;
+          exit;
+        end else begin
+          pwd := gPassw
+        end;
       finally
-         Free;
+        Free;
       end;
     end;
   end
@@ -4992,8 +4991,12 @@ begin
   if i >= 0 then
     FPasswords.Delete(i);
 
+  RpcObj.Http.Sock.SSL.PFXfile:='';
+  RpcObj.Http.Sock.SSL.KeyPassword:='';
   if Ini.ReadBool(Sec, 'UseSSL', False) then begin
     RpcObj.InitSSL;
+    RpcObj.Http.Sock.SSL.PFXfile:=Ini.ReadString(Sec, 'CertFile', '');
+    RpcObj.Http.Sock.SSL.KeyPassword:=DecodeBase64(Ini.ReadString(Sec, 'CertPass', ''));
     if not IsSSLloaded then begin
       MessageDlg(Format(sSSLLoadError, [DLLSSLName, DLLUtilName]), mtError, [mbOK], 0);
       exit;
@@ -5411,7 +5414,7 @@ var
   i:integer;
 begin
   // PETROV - Herb off
-  i:=Ini.ReadInteger ('Interface', 'IgnoreRightLeft', 0);	// 0 - by default
+  i:=Ini.ReadInteger ('Interface', 'IgnoreRightLeft', 0);   // 0 - by default
     Ini.WriteInteger('Interface', 'IgnoreRightLeft', i);
 
   if (FTranslationLanguage='English') and (i=0) then
@@ -7223,10 +7226,10 @@ end;
 
 procedure TMainform.StatusBarSizes;
 var
-   MMap: TMyHashMap;
-   ids, cidx: variant;
-   TotalSize, TotalDownloaded, TotalSizeToDownload, TorrentDownloaded, TorrentSizeToDownload: Int64;
-   i: Integer;
+  MMap: TMyHashMap;
+  ids, cidx: variant;
+  TotalSize, TotalDownloaded, TotalSizeToDownload, TorrentDownloaded, TorrentSizeToDownload: Int64;
+  i: Integer;
   a, b, c, d: Int64;
 begin
     try
@@ -7238,23 +7241,23 @@ begin
         TotalSize := 0;
         TotalDownloaded := 0;
         TotalSizeToDownload := 0;
-		
-		MMap := TMyHashMap.Create;
-		for i:=0 to FTorrents.Count -1 do
-		begin
-		  MMap[StrToInt(Ftorrents.Items[idxTorrentId, i])] := i;
-		end;
+
+        MMap := TMyHashMap.Create;
+        for i:=0 to FTorrents.Count -1 do
+        begin
+          MMap[StrToInt(Ftorrents.Items[idxTorrentId, i])] := i;
+        end;
 
         for i:=VarArrayLowBound(ids, 1) to VarArrayHighBound(ids, 1) do
         begin
-			 cidx := MMap[ids[i]];
-			 TotalSize             := TotalSize + FTorrents.Items[idxSize, cidx];
-			 TorrentSizeToDownload := FTorrents.Items[idxSizetoDowload, cidx];
-			 TorrentDownloaded     := TorrentSizeToDownload * (FTorrents.Items[idxDone, cidx] / 100);
-			 TotalSizeToDownload   := TotalSizeToDownload + TorrentSizeToDownload;
-			 TotalDownloaded       := TotalDownloaded + TorrentDownloaded;
+          cidx := MMap[ids[i]];
+          TotalSize             := TotalSize + FTorrents.Items[idxSize, cidx];
+          TorrentSizeToDownload := FTorrents.Items[idxSizetoDowload, cidx];
+          TorrentDownloaded     := TorrentSizeToDownload * (FTorrents.Items[idxDone, cidx] / 100);
+          TotalSizeToDownload   := TotalSizeToDownload + TorrentSizeToDownload;
+          TotalDownloaded       := TotalDownloaded + TorrentDownloaded;
         end;
-		MMap.Free;
+        MMap.Free;
 
         StatusBar.Panels[4].Text:=Format(sTotalSize,[GetHumanSize(TotalSize, 0, '?')]);
         StatusBar.Panels[5].Text:=Format(sTotalSizeToDownload,[GetHumanSize(TotalSizeToDownload, 0, '?')]);
@@ -7269,7 +7272,7 @@ begin
       StatusBar.Panels[7].Text:=Format(sTotalRemain,[GetHumanSize(0, 0, '?')]);
     end;
     except
-         gTorrents.Refresh;
+        gTorrents.Refresh;
     end;
 
 end;
@@ -7914,17 +7917,17 @@ var
   f:system.text;
   crashreportfilename:shortstring;
 begin
-     crashreportfilename:='crashreport.txt';
-     system.Assign(f,crashreportfilename);
-     if FileExists(crashreportfilename) then
+    crashreportfilename:='crashreport.txt';
+    system.Assign(f,crashreportfilename);
+    if FileExists(crashreportfilename) then
         system.Append(f)
-     else
+    else
         system.Rewrite(f);
 
-     WriteLn(f,'');WriteLn(f,'v.' + AppVersion + ' crashed((');WriteLn(f,'');
-     myDumpExceptionBackTrace(f);
-     system.close(f);
-     halt(0);
+    WriteLn(f,'');WriteLn(f,'v.' + AppVersion + ' crashed((');WriteLn(f,'');
+    myDumpExceptionBackTrace(f);
+    system.close(f);
+    halt(0);
 end;
 
 
@@ -8010,5 +8013,3 @@ finalization
   except
   end;
 end.
-
-

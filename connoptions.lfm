@@ -97,6 +97,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Top = 75
         Width = 82
         Caption = 'Use SSL'
+        OnClick = cbSSLClick
         TabOrder = 2
       end
       object edHost: TEdit
@@ -170,6 +171,38 @@ inherited ConnOptionsForm: TConnOptionsForm
         AutoSize = False
         Caption = 'Always auto-reconnect'
         TabOrder = 7
+      end
+      object txCertFile: TLabel
+        Left = 8
+        Height = 18
+        Top = 245
+        Width = 105
+        Caption = 'Client Certificate:'
+        ParentColor = False
+      end
+      object edCertFile: TEdit
+        Left = 180
+        Height = 32
+        Top = 242
+        Width = 316
+        TabOrder = 10
+      end
+      object txCertPass: TLabel
+        Left = 8
+        Height = 18
+        Top = 274
+        Width = 72
+        Caption = 'Private Key:'
+        ParentColor = False
+      end
+      object edCertPass: TEdit
+        Left = 180
+        Height = 32
+        Top = 271
+        Width = 316
+        EchoMode = emPassword
+        PasswordChar = '*'
+        TabOrder = 11
       end
     end
     object tabProxy: TTabSheet
@@ -325,6 +358,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Height = 23
         Top = 10
         Width = 385
+        Anchors = [akLeft]
         AutoSize = False
         BorderSpacing.Around = 10
         Caption = 'The maximum history of directories for storage of torrents'
